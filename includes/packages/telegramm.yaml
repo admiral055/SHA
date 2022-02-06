@@ -1,0 +1,9 @@
+telegramm:
+
+    script:
+     send_message_Arthur:
+        alias: Отправка через сервис уведомлений
+        sequence:
+        - service: notify.Arthur
+          data:
+          message: "Текущее время - {{ states('sensor.time') }} . Всё впорядке"
