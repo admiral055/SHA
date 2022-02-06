@@ -1,0 +1,6 @@
+  - name: telegram_Arthur
+    platform: telegram
+    chat_id: 800246668
+  - name: telegram_Diana
+    platform: telegram
+    chat_id: 2016067024

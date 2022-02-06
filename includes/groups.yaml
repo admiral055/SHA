@@ -1,0 +1,13 @@
+family:
+  entities:
+  - person.artur
+  - person.diana
+  
+light:
+  entities:
+  - switch.zal_1
+  - switch.zal_2
+  - switch.kukhnia
+  - switch.tualet
+  - switch.vannaia
+  - switch.korridor

@@ -1,0 +1,586 @@
+- id: 1c0e5a2c4864412eaef17eb756876057
+  alias: Выключить свет когда все ушли
+  trigger:
+  - platform: state
+    entity_id: group.family
+    to: not_home
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+  action:
+  - service: switch.turn_off
+    target:
+      device_id: e889eb5be897523c1051c9ef2492aee5
+      area_id:
+      - korridor
+      - kukhnia
+      entity_id: switch.korridor
+  - service: androidtv.adb_command
+    data:
+      entity_id: media_player.androidbox
+      command: SLEEP
+  - service: telegram_bot.send_message
+    data:
+      message: Всё выключено.
+      title: Все ушли, дома никого нет.
+      target: 2016067024
+  - service: telegram_bot.send_message
+    data:
+      target: 800246668
+      title: Все ушли, дома никого нет.
+      message: Всё выключено
+- id: '1642528076489'
+  alias: Движение в ванной
+  description: ''
+  trigger:
+  - type: no_motion
+    platform: device
+    device_id: 1199c4a5925e05cf0df18330f8001b01
+    entity_id: binary_sensor.datchik_dvizheniia
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 3
+      seconds: 0
+  condition:
+  - condition: device
+    type: is_on
+    device_id: 3b39cb43cb1a9d44a5345933c6112ba5
+    entity_id: switch.vannaia
+    domain: switch
+  action:
+  - type: turn_off
+    device_id: 3b39cb43cb1a9d44a5345933c6112ba5
+    entity_id: switch.vannaia
+    domain: switch
+  mode: single
+- id: '1642624899336'
+  alias: Артур вышел с работы
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id: person.artur
+    zone: zone.rabota
+    event: leave
+  condition:
+  - condition: time
+    before: '18:00'
+    after: '16:50'
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: telegram_bot.send_message
+    data:
+      target: 2016067024
+      message: Артур вышел с работы
+  - service: notify.telegram_Diana
+    data:
+      message: '{{"\U0001F3E0"}} Погода, отчёт на {{ states(''sensor.time_date'')
+        }}
+
+        {{"\U0001F321"}} Температура - {{states(''sensor.openweathermap_temperature'')
+        }} C
+
+        {{"\U0001F328"}} По ощущениям - {{states(''sensor.openweathermap_feels_like_temperature'')
+        }}
+
+        {{"\U0001F32B"}} Влажность - {{states(''sensor.openweathermap_humidity'')
+        }} %
+
+        {{"\U0001F4AA"}} Давление - {{(states(''sensor.openweathermap_pressure'')|float
+        * 0.7500637)|round(2) }} мм.рт.ст
+
+        {{"\U00002600"}} Погода - {{states(''sensor.openweathermap_weather'') }}
+
+        {{"\U00002B50"}} Прогноз на сегодня - {{states(''sensor.openweathermap_forecast_temperature'')
+        }} C
+
+        {{"\U0001F327"}} Прогноз дождя - {{states(''sensor.openweathermap_rain'')
+        }}
+
+        {{"\U0001F328"}} Прогноз снега - {{states(''sensor.openweathermap_snow'')
+        }}
+
+        '
+  mode: single
+- id: '1642626817419'
+  alias: Диана, вышла с работы
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id: person.diana
+    zone: zone.rabota_2
+    event: leave
+  condition: []
+  action:
+  - service: telegram_bot.send_message
+    data:
+      title: Диана
+      message: 'Вышла с работы '
+      target: 800246668
+  mode: single
+- id: '1642877033598'
+  alias: Диана, пришла к детям
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id: person.diana
+    zone: zone.u_detei
+    event: enter
+  condition: []
+  action:
+  - service: telegram_bot.send_message
+    data:
+      message: пришла к детям
+      target: 800246668
+      title: Диана
+  mode: single
+- id: '1642877309904'
+  alias: Вышла от детей
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id: person.diana
+    zone: zone.u_detei
+    event: leave
+  condition: []
+  action:
+  - service: notify.telegram_arthur
+    data:
+      message: Вышла от детей
+      title: Динь
+  mode: single
+- id: '1643044363800'
+  alias: Артур просыпается
+  description: ''
+  trigger:
+  - platform: time_pattern
+    minutes: '00'
+    hours: '06'
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - type: turn_on
+    device_id: e889eb5be897523c1051c9ef2492aee5
+    entity_id: switch.zal_1
+    domain: switch
+  - type: turn_on
+    device_id: 3b39cb43cb1a9d44a5345933c6112ba5
+    entity_id: switch.vannaia
+    domain: switch
+  - delay:
+      hours: 0
+      minutes: 3
+      seconds: 0
+      milliseconds: 0
+  - type: turn_off
+    device_id: e889eb5be897523c1051c9ef2492aee5
+    entity_id: switch.zal_1
+    domain: switch
+  - delay:
+      hours: 0
+      minutes: 27
+      seconds: 0
+      milliseconds: 0
+  - type: turn_off
+    device_id: 3b39cb43cb1a9d44a5345933c6112ba5
+    entity_id: switch.vannaia
+    domain: switch
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - type: turn_on
+    device_id: 3b39cb43cb1a9d44a5345933c6112ba5
+    entity_id: switch.vannaia
+    domain: switch
+  mode: single
+- id: '1643045254322'
+  alias: Диана на работу
+  description: ''
+  trigger:
+  - platform: time_pattern
+    hours: '4'
+    minutes: '15'
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: script.turn_on
+    data: {}
+    target:
+      entity_id:
+      - script.weather_diana
+      - script.weather_arthur
+  - type: turn_on
+    device_id: 77e49e7066ad25d47d095b972c637cca
+    entity_id: switch.tualet
+    domain: switch
+  - delay:
+      hours: 0
+      minutes: 3
+      seconds: 0
+      milliseconds: 0
+  - type: turn_on
+    device_id: 3b39cb43cb1a9d44a5345933c6112ba5
+    entity_id: switch.vannaia
+    domain: switch
+  mode: single
+- id: '1643049137623'
+  alias: Диана выходит на работу
+  description: Отрывает дверь
+  trigger:
+  - type: opened
+    platform: device
+    device_id: 9410cefa4079ff07071f6634a800d1c3
+    entity_id: binary_sensor.dver
+    domain: binary_sensor
+  condition:
+  - condition: time
+    after: 04:00
+    before: 06:30
+  action:
+  - type: turn_off
+    device_id: 3b39cb43cb1a9d44a5345933c6112ba5
+    entity_id: switch.korridor
+    domain: switch
+  - type: turn_off
+    device_id: 3b39cb43cb1a9d44a5345933c6112ba5
+    entity_id: switch.vannaia
+    domain: switch
+  - type: turn_off
+    device_id: 77e49e7066ad25d47d095b972c637cca
+    entity_id: switch.kukhnia
+    domain: switch
+  - type: turn_off
+    device_id: 77e49e7066ad25d47d095b972c637cca
+    entity_id: switch.tualet
+    domain: switch
+  - type: turn_off
+    device_id: e889eb5be897523c1051c9ef2492aee5
+    entity_id: switch.zal_1
+    domain: switch
+  - service: script.turn_on
+    data: {}
+    target:
+      entity_id:
+      - script.weather_arthur
+      - script.weather_diana
+  mode: single
+- id: '1643050114526'
+  alias: Артур выходит на работу
+  description: ''
+  trigger:
+  - type: not_opened
+    platform: device
+    device_id: 9410cefa4079ff07071f6634a800d1c3
+    entity_id: binary_sensor.dver
+    domain: binary_sensor
+  condition:
+  - condition: time
+    after: 07:30
+    before: 08:00
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - type: turn_off
+    device_id: 3b39cb43cb1a9d44a5345933c6112ba5
+    entity_id: switch.korridor
+    domain: switch
+  - type: turn_off
+    device_id: 3b39cb43cb1a9d44a5345933c6112ba5
+    entity_id: switch.vannaia
+    domain: switch
+  - type: turn_off
+    device_id: 77e49e7066ad25d47d095b972c637cca
+    entity_id: switch.kukhnia
+    domain: switch
+  - type: turn_off
+    device_id: 77e49e7066ad25d47d095b972c637cca
+    entity_id: switch.tualet
+    domain: switch
+  - service: androidtv.adb_command
+    data:
+      entity_id: media_player.androidbox
+      command: SLEEP
+  mode: single
+- id: '1643051103199'
+  alias: Дверь открылась
+  description: ''
+  trigger:
+  - type: opened
+    platform: device
+    device_id: 9410cefa4079ff07071f6634a800d1c3
+    entity_id: binary_sensor.dver
+    domain: binary_sensor
+  condition:
+  - condition: time
+    after: 08:00
+    before: 04:00
+  action:
+  - type: turn_on
+    device_id: 3b39cb43cb1a9d44a5345933c6112ba5
+    entity_id: switch.korridor
+    domain: switch
+  - delay:
+      hours: 0
+      minutes: 3
+      seconds: 0
+      milliseconds: 0
+  - type: turn_off
+    device_id: 3b39cb43cb1a9d44a5345933c6112ba5
+    entity_id: switch.korridor
+    domain: switch
+  mode: single
+- id: '1643053048992'
+  alias: Выключение приставки перед сном
+  description: ''
+  trigger:
+  - platform: time
+    at: 01:00
+  condition: []
+  action:
+  - service: androidtv.adb_command
+    data:
+      entity_id: media_player.androidbox
+      command: SLEEP
+  mode: single
+- id: '1643734717982'
+  alias: Зарядка On
+  description: ''
+  trigger:
+  - platform: time
+    at: 02:30
+  condition:
+  - type: is_battery_level
+    condition: device
+    device_id: fddfcc24d52504ccc16a3633cef22b63
+    entity_id: sensor.admiral055l_battery_level
+    domain: sensor
+    below: 80
+  - condition: or
+    conditions:
+    - type: is_battery_level
+      condition: device
+      device_id: a5a019a5e8f0b85ee7a82ce579709690
+      entity_id: sensor.lenovo_battery_level
+      domain: sensor
+      below: 80
+    - condition: and
+      conditions:
+      - condition: device
+        type: is_off
+        device_id: c67c72d44f8946b96922d14a76c89568
+        entity_id: switch.charger
+        domain: switch
+  action:
+  - type: turn_on
+    device_id: c67c72d44f8946b96922d14a76c89568
+    entity_id: switch.charger
+    domain: switch
+  mode: single
+- id: '1643734965490'
+  alias: Зарядка Off
+  description: ''
+  trigger:
+  - type: battery_level
+    platform: device
+    device_id: fddfcc24d52504ccc16a3633cef22b63
+    entity_id: sensor.admiral055l_battery_level
+    domain: sensor
+    above: 80
+  condition:
+  - condition: time
+    after: 04:30
+    before: 06:00
+  action:
+  - type: turn_off
+    device_id: c67c72d44f8946b96922d14a76c89568
+    entity_id: switch.charger
+    domain: switch
+  mode: single
+- id: '1643905884410'
+  alias: Свет включить
+  description: ''
+  trigger:
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: /ку
+  condition: []
+  action:
+  - type: toggle
+    device_id: 3b39cb43cb1a9d44a5345933c6112ba5
+    entity_id: switch.korridor
+    domain: switch
+  - service: script.weather_arthur
+    data: {}
+  mode: single
+- id: '1643993767344'
+  alias: Telegram Control Pannel Command
+  trigger:
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: /start
+  action:
+  - service: telegram_bot.send_message
+    data_template:
+      target: '{{ trigger.event.data.user_id }}'
+      message: "{{ [ \"Приветики\", \"К звёздам\", \"Сер, Да сер!\", \"Здоров!\",\
+        \ \"Вечер в хату!\", \"Здрасть!\", \"Ты кто?\", \"Поехали\", \"Хелло амиго\"\
+        , \"Буенос ночес!\" ] | random }}       \n"
+      data:
+      inline_keyboard:
+      - '{{"\U0001F4A1"}} Lights:/lights, {{"\u2753"}} Status:/sstatus, {{"\u26D4"}}
+        Security:/security'
+      - '{{"\U0001F6E0"}} System:/system, {{"\U0001F501"}} Ping:/ping, {{"\U0001F4CC"}}
+        Кто где?:/location '
+      - '{{"\U0001F324"}} Погода:/weather, {{"\U0001F4B5"}} Shoping :/shopinglist'
+  initial_state: 'on'
+- id: '1643994269367'
+  alias: IK - Telegram - status weather
+  trigger:
+  - platform: event
+    event_type: telegram_callback
+    event_data:
+      data: /weather
+  action:
+  - service: telegram_bot.edit_message
+    data_template:
+      message_id: last
+      chat_id: '{{ trigger.event.data.user_id }}'
+      title: '{{"\U0001F324"}} *Погода*'
+      message: "{{\"\\U0001F3E0\"}} Погода, отчёт за {{ states('sensor.time_date')\
+        \ }}\n{{\"\\U0001F321\"}} Температура - {{ states('sensor.openweathermap_temperature')\
+        \ }} C\n{{\"\\U0001F32B\"}} Влажность - {{ states('sensor.openweathermap_humidity')\
+        \ }} %\n{{\"\\U0001F4AA\"}} Давление - {{ (states('sensor.openweathermap_pressure')|float\
+        \ * 0.7500637)|round(2) }} мм рт. ст\n{{\"\\U00002600\"}} Погода - {{ states('sensor.openweathermap_weather')\
+        \ }}\n{{\"\\U00002B50\"}} Прогноз на сегодня - {{ states('sensor.openweathermap_forecast_temperature')\
+        \ }} C\n{{\"\\U0001F327\"}} Прогноз дождя - {{ states('sensor.openweathermap_rain')\
+        \ }}\n{{\"\\U0001F328\"}} Прогноз снега - {{ states('sensor.openweathermap_snow')\
+        \ }}  \n"
+      inline_keyboard:
+      - '{{ "\u21a9\ufe0f" }} Панель керування:/to_cp'
+- id: '1643998285636'
+  alias: IK - Telegram - MAP
+  trigger:
+  - platform: event
+    event_type: telegram_callback
+    event_data:
+      data: /location
+  action:
+  - service: telegram_bot.edit_message
+    data_template:
+      message_id: last
+      chat_id: '{{ trigger.event.data.user_id }}'
+      title: '{{"\U0001F5FA"}} *Местоположение*'
+      message: '{{"\U0001F935"}} Артур - {{ states(''sensor.admiral055l_geocoded_location'')
+        }}
+
+        {{"\U0001F469"}} Диана - {{ states(''sensor.lenovo_geocoded_location'') }}
+
+        '
+      inline_keyboard:
+      - '{{ "\u21a9\ufe0f" }} Панель керування:/weather'
+- id: '1644014116451'
+  alias: Новая автоматизация
+  description: ''
+  trigger:
+  - platform: time_pattern
+    hours: '1'
+    minutes: '36'
+  condition: []
+  action:
+  - service: script.weather_diana
+    data: {}
+  mode: single
+- id: '1644014117092'
+  alias: Новая автоматизация
+  description: ''
+  trigger:
+  - platform: time_pattern
+    hours: '1'
+    minutes: '36'
+  condition: []
+  action:
+  - service: script.weather_diana
+    data: {}
+  mode: single
+- id: '1644014211987'
+  alias: qweqw
+  description: ''
+  trigger:
+  - type: plugged_in
+    platform: device
+    device_id: a5a019a5e8f0b85ee7a82ce579709690
+    entity_id: binary_sensor.lenovo_is_charging
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: script.weather_diana
+    data: {}
+  mode: single
+- id: '1644015526204'
+  alias: qwsdxasd df as
+  description: ''
+  trigger:
+  - platform: time
+    at: 02:00
+  action:
+  - service: script.weather_arthur
+    data: {}
+  - type: turn_off
+    device_id: 3b39cb43cb1a9d44a5345933c6112ba5
+    entity_id: switch.korridor
+    domain: switch
+  mode: single
+- id: '1644084288174'
+  alias: Движение в корридоре
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: dc4d8fac539f1c11c107ffc781e4ac88
+    entity_id: binary_sensor.motion_sensor_occupancy
+    domain: binary_sensor
+  condition:
+  - condition: time
+    after: '17:30'
+    before: 07:40
+  action:
+  - type: turn_on
+    device_id: 77e49e7066ad25d47d095b972c637cca
+    entity_id: switch.tualet
+    domain: switch
+  - delay:
+      hours: 0
+      minutes: 10
+      seconds: 0
+      milliseconds: 0
+  - type: turn_off
+    device_id: 77e49e7066ad25d47d095b972c637cca
+    entity_id: switch.tualet
+    domain: switch
+  mode: single
