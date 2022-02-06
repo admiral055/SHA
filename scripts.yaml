@@ -1,0 +1,175 @@
+weather_arthur:
+  sequence:
+  - service: notify.telegram_Arthur
+    data:
+      message: '
+
+        Доброе утро, Солнышко {{"\U0001F31E"}}
+
+
+        {{"\U0001F3E0"}} Погодный отчет от: {{ states(''sensor.time_date'') }}
+
+        {{"\U00002600"}} Погода - {{ states(''sensor.openweathermap_weather'') }}
+
+        {{"\U0001F321"}} Температура {{ states(''sensor.openweathermap_temperature'')
+        }} C°
+
+        {{"\U0001F31D"}} Ощущается {{ states(''sensor.openweathermap_feels_like_temperature'')
+        }} C°
+
+        {{"\U00002B50"}} Прогноз на сегодня  {{ states(''sensor.openweathermap_forecast_temperature'')
+        }} C°
+
+        {{"\U0001F32B"}} Влажность - {{ states(''sensor.openweathermap_humidity'')
+        }} %
+
+        {{"\U0001F4AA"}} Давление - {{(states(''sensor.openweathermap_pressure'')|float*
+        0.7500637)|round(2) }} мм.рт.ст
+
+        {{"\U0001F4A8"}} Ветер - {{ states(''sensor.openweathermap_wind_speed'') }}
+        м/с
+
+        {{"\U0001F327"}} Прогноз дождя - {{ states(''sensor.openweathermap_rain'')
+        }}
+
+        {{"\U0001F328"}} Прогноз снега - {{ states(''sensor.openweathermap_snow'')
+        }}
+
+        {{"\U0001F305"}} Ультрафиолетовый индекс - {{ states(''sensor.openweathermap_uv_index'')
+        }}
+
+
+        Удачного рабочего дня. Люблю тебя. {{"\U0001F63B"}}{{"\U0001F498"}}
+
+        '
+  mode: single
+  alias: Погода
+  icon: mdi:weather-pouring
+weather_diana:
+  sequence:
+  - service: notify.telegram_Diana
+    data:
+      message: '
+
+        Доброе утро, Солнышко {{"\U0001F31E"}}
+
+
+        {{"\U0001F3E0"}} Погодный отчет от: {{ states(''sensor.time_date'') }}
+
+        {{"\U00002600"}} Погода - {{ states(''sensor.openweathermap_weather'') }}
+
+        {{"\U0001F321"}} Температура {{ states(''sensor.openweathermap_temperature'')
+        }} C°
+
+        {{"\U0001F31D"}} Ощущается {{ states(''sensor.openweathermap_feels_like_temperature'')
+        }} C°
+
+        {{"\U00002B50"}} Прогноз на сегодня  {{ states(''sensor.openweathermap_forecast_temperature'')
+        }} C°
+
+        {{"\U0001F32B"}} Влажность - {{ states(''sensor.openweathermap_humidity'')
+        }} %
+
+        {{"\U0001F4AA"}} Давление - {{(states(''sensor.openweathermap_pressure'')|float*
+        0.7500637)|round(2) }} мм.рт.ст
+
+        {{"\U0001F4A8"}} Ветер - {{ states(''sensor.openweathermap_wind_speed'') }}
+        м/с
+
+        {{"\U0001F327"}} Прогноз дождя - {{ states(''sensor.openweathermap_rain'')
+        }}
+
+        {{"\U0001F328"}} Прогноз снега - {{ states(''sensor.openweathermap_snow'')
+        }}
+
+        {{"\U0001F305"}} Ультрафиолетовый индекс - {{ states(''sensor.openweathermap_uv_index'')
+        }}
+
+
+        Удачного рабочего дня. Люблю тебя. {{"\U0001F63B"}}{{"\U0001F498"}}
+
+        '
+  mode: single
+  alias: Погода (Диана)
+  icon: mdi:weather-sunset
+box_home:
+  sequence:
+  - service: androidtv.adb_command
+    data:
+      entity_id: media_player.AndroidBox
+      command: HOME
+box_power:
+  sequence:
+  - service: androidtv.adb_command
+    data:
+      entity_id: media_player.AndroidBox
+      command: POWER
+  mode: single
+  alias: Телевизор
+  icon: mdi:television-classic
+box_sleep:
+  sequence:
+  - service: androidtv.adb_command
+    data:
+      entity_id: media_player.AndroidBox
+      command: SLEEP
+box_up:
+  sequence:
+  - service: androidtv.adb_command
+    data:
+      entity_id: media_player.AndroidBox
+      command: UP
+box_down:
+  sequence:
+  - service: androidtv.adb_command
+    data:
+      entity_id: media_player.AndroidBox
+      command: DOWN
+box_left:
+  sequence:
+  - service: androidtv.adb_command
+    data:
+      entity_id: media_player.AndroidBox
+      command: LEFT
+box_right:
+  sequence:
+  - service: androidtv.adb_command
+    data:
+      entity_id: media_player.AndroidBox
+      command: RIGHT
+box_center:
+  sequence:
+  - service: androidtv.adb_command
+    data:
+      entity_id: media_player.AndroidBox
+      command: CENTER
+box_back:
+  sequence:
+  - service: androidtv.adb_command
+    data:
+      entity_id: media_player.AndroidBox
+      command: BACK
+box_menu:
+  sequence:
+  - service: androidtv.adb_command
+    data:
+      entity_id: media_player.AndroidBox
+      command: MENU
+box_mute:
+  sequence:
+  - service: androidtv.adb_command
+    data:
+      entity_id: media_player.AndroidBox
+      command: MUTE
+hdbox:
+  sequence:
+  - service: androidtv.adb_command
+    entity_id: media_player.AndroidBox
+    data:
+      command: am start -a android.intent.action.VIEW -d -n dkc.video.hdbox/com.dkc.fs.ui.activities.SplashActivity
+wink:
+  sequence:
+  - service: androidtv.adb_command
+    entity_id: media_player.AndroidBox
+    data:
+      command: am start -a android.intent.action.VIEW -d -n ru.rt.video.app.tv/com.rostelecom.zabava.ui.splash.SplashActivity

@@ -1,0 +1,140 @@
+
+admiral055:
+  name: ADMiral055
+  mac: C0:6B:55:0E:92:11
+  icon:
+  picture:
+  track: true
+
+lenovo:
+  name: Lenovo
+  mac: EC:08:E5:4F:C1:C2
+  icon:
+  picture:
+  track: true
+
+twip:
+  name: Tvip
+  mac: 10:27:BE:2E:63:0D
+  icon:
+  picture:
+  track: true
+
+switch_1:
+  name: Switch-1
+  mac: 70:03:9F:7E:A3:92
+  icon:
+  picture:
+  track: true
+
+comp:
+  name: Comp
+  mac: 00:22:15:68:CA:F5
+  icon:
+  picture:
+  track: true
+
+switch_2:
+  name: Switch-2
+  mac: 70:03:9F:7E:8C:F1
+  icon:
+  picture:
+  track: true
+
+switch_3:
+  name: Switch-3
+  mac: 70:03:9F:7E:7C:B1
+  icon:
+  picture:
+  track: true
+
+socket:
+  name: Socket
+  mac: 70:89:76:58:64:BA
+  icon:
+  picture:
+  track: true
+
+orangepiw:
+  name: OrangePiW
+  mac: 12:81:B6:C2:54:A5
+  icon:
+  picture:
+  track: true
+
+honor:
+  name: Honor
+  mac: D8:9E:61:D5:64:1E
+  icon:
+  picture:
+  track: true
+
+motion:
+  name: Motion
+  mac: 7C:F6:66:8A:AA:D1
+  icon:
+  picture:
+  track: true
+
+google_maps_102978982636867464668:
+  name: Ротавнин Станислав
+  mac:
+  icon:
+  picture: https://lh3.googleusercontent.com/a-/AOh14Ggx7Jk8qPYeKKEqeajnnqDE_wSa1Er2JQHImUoy5w
+  track: true
+
+google_maps_yuriy_kurvyakov_gmail_com:
+  name: Батя
+  mac:
+  icon:
+  picture:
+  track: true
+
+google_maps_109224958268094091237:
+  name: Диана
+  mac:
+  icon:
+  picture: https://lh3.googleusercontent.com/a-/AOh14GhebYZFdBRImsWYZo_LyA_dDyl6u_Uh_L6zXwu0
+  track: true
+
+google_maps_115670290150704352977:
+  name: Иванова Светлана
+  mac:
+  icon:
+  picture: https://lh3.googleusercontent.com/a-/AOh14Gj_9WGxUJPmXwz8Bggdns6tRCh-g5RrP7D117as_A
+  track: true
+
+google_maps_a_kurvyakov_gmail_com:
+  name: Артур
+  mac:
+  icon:
+  picture:
+  track: true
+
+aqua_1:
+  name: Aqua-1
+  mac: 10:D5:61:C2:64:59
+  icon:
+  picture:
+  track: true
+
+open:
+  name: Open
+  mac: 70:89:76:8C:D8:37
+  icon:
+  picture:
+  track: true
+
+alcatel:
+  name: Alcatel
+  mac: 88:9E:33:4B:EE:E3
+  icon:
+  picture:
+  track: true
+
+f8_f0_82_79_37_c3:
+  name: f8_f0_82_79_37_c3
+  mac: F8:F0:82:79:37:C3
+  icon:
+  picture:
+  track: true

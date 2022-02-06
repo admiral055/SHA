@@ -1,0 +1,36 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+
+default_config:
+
+#lovelace:
+  #mode: yaml
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+
+telegram_bot: !include includes/telegram.yaml
+notify: !include includes/notify.yaml
+group: !include includes/groups.yaml
+sensor: !include includes/sensors.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+hacs:
+  token: !secret HACS_github
+  appdaemon: true
+  python_script: true
+  theme: true
+
+device_tracker:
+  - platform: luci
+    host: 10.10.10.1
+    username: root
+    password: 2
+  - platform: google_maps
+    username: a.kurvyakov@gmail.com
+  - platform: google_maps
+    username: yuriy.kurvyakov@gmail.com
